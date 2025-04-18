@@ -32,7 +32,7 @@ const VirtualKeyboard: React.FC<VirtualKeyboardProps> = (props) => {
       </div>
       <div className="action-keys">
         <VirtualKey key="Enter" keyName="Enter" color={Color.DarkGray} />
-        <VirtualKey key="Delete" keyName="Delete" color={Color.DarkGray} />
+        <VirtualKey key="Back" keyName="Back" color={Color.DarkGray} />
       </div>
     </div>
   );
