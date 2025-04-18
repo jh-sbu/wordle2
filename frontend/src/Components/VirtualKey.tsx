@@ -1,4 +1,5 @@
 import Color from "../Enums/Color";
+import './VirtualKey.css';
 
 interface VirtualKeyProps {
   key: string,
@@ -7,7 +8,8 @@ interface VirtualKeyProps {
 
 const VirtualKey: React.FC<VirtualKeyProps> = (props) => {
   return (
-    <div>
+    <div className="virtual-key">
+      {props.key}
     </div>
   )
 }
