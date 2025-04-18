@@ -1,5 +1,8 @@
-interface VirtualKeyProps {
+import Color from "../Enums/Color";
 
+interface VirtualKeyProps {
+  key: string,
+  color: Color,
 }
 
 const VirtualKey: React.FC<VirtualKeyProps> = (props) => {
