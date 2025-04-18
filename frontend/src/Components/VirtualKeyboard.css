@@ -1,0 +1,15 @@
+.virtual-keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5em;
+}
+
+.keyboard-row:last-child {
+  margin-bottom: 0;
+}
