@@ -15,20 +15,20 @@ const VirtualKeyboard: React.FC<VirtualKeyboardProps> = (props) => {
     <div className="virtual-keyboard">
       <div className="keyboard-row">
         {row1.map((key) => (
-          <VirtualKey key={key} key={key} color={Color.DarkGray} />
+          <VirtualKey key={key} keyName={key} color={Color.DarkGray} />
         ))}
       </div>
       <div className="keyboard-row">
         {row2.map((key) => (
-          <VirtualKey key={key} key={key} color={Color.DarkGray} />
+          <VirtualKey key={key} keyName={key} color={Color.DarkGray} />
         ))}
       </div>
       <div className="keyboard-row">
         {row3.map((key) => (
-          <VirtualKey key={key} key={key} color={Color.DarkGray} />
+          <VirtualKey key={key} keyName={key} color={Color.DarkGray} />
         ))}
-        <VirtualKey key="Enter" key="Enter" color={Color.DarkGray} />
-        <VirtualKey key="Delete" key="Delete" color={Color.DarkGray} />
+        <VirtualKey key="Enter" keyName="Enter" color={Color.DarkGray} />
+        <VirtualKey key="Delete" keyName="Delete" color={Color.DarkGray} />
       </div>
     </div>
   );
