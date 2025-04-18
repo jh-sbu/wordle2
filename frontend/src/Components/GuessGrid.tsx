@@ -6,7 +6,7 @@ const testGuess = 'hello';
 
 const GuessGrid = () => {
   // const [guesses, setGuesses] = useState<(string | null)[]>([null, null, null, null, null, null]);
-  const [guesses, setGuesses] = useState<(string | null)[]>([testGuess, testGuess, testGuess, testGuess, testGuess]);
+  const [guesses, setGuesses] = useState<(string | null)[]>([testGuess, testGuess, testGuess, testGuess, testGuess, testGuess]);
   const [results, setResults] = useState<Color[][]>(Array.from({ length: 6 }, () => Array(5).fill(Color.Gray)));
 
   return (
