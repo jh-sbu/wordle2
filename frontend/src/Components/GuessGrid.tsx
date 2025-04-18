@@ -10,8 +10,7 @@ const GuessGrid = () => {
   const [results, setResults] = useState<Color[][]>(Array.from({ length: 6 }, () => Array(5).fill(Color.Gray)));
 
   return (
-    <div>
-      <h1>Hello!</h1>
+    <div className="guess-grid">
       {[0, 1, 2, 3, 4, 5].map((i) => {
         return <GuessRow word={guesses[i]} colors={results[i]} />
       })}
