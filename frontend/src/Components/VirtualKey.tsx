@@ -9,9 +9,9 @@ interface VirtualKeyProps {
 const VirtualKey: React.FC<VirtualKeyProps> = (props) => {
   const isActionKey = props.keyName === "Enter" || props.keyName === "Back";
   return (
-    <div className={`virtual-key ${isActionKey ? "action-key" : ""}`}>
+    <button className={`virtual-key ${isActionKey ? "action-key" : ""}`}>
       {props.keyName}
-    </div>
+    </button>
   );
 };
 
