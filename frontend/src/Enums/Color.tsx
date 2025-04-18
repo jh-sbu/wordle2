@@ -2,7 +2,8 @@ enum Color {
   Gray,
   DarkGray,
   Yellow,
-  Green
+  Green,
+  Black
 }
 
 export default Color;
