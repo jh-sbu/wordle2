@@ -10,3 +10,8 @@
   color: white;
   text-transform: uppercase;
 }
+
+.action-key {
+  width: 60px;
+  font-size: 1em;
+}
