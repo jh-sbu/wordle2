@@ -1,5 +1,6 @@
 import Color from "../Enums/Color";
 import GuessLetter from "./GuessLetter";
+import './GuessRow.css';
 
 interface GuessRowProps {
   word: string | null;
@@ -8,11 +9,10 @@ interface GuessRowProps {
 
 const GuessRow = (props: GuessRowProps) => {
   return (
-    <div>
-      <h2>Hello again!</h2>
+    <div className="guess-row">
       {props.colors.map((color, i) => {
         return (
-          <GuessLetter letter={props.word ? props.word[i] : null} color={color} />
+          <GuessLetter key={i} letter={props.word ? props.word[i] : null} color={color} />
         )
       })}
     </div>
