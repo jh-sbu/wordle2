@@ -8,9 +8,12 @@ const GuessGrid = () => {
 
   return (
     <div>
+      <h1>Hello!</h1>
       {[0, 1, 2, 3, 4, 5].map((i) => {
         return <GuessRow word={guesses[i]} colors={results[i]} />
       })}
     </div >
   )
 }
+
+export default GuessGrid;
