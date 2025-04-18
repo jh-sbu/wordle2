@@ -1,7 +1,5 @@
 .guess-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.5rem;
-
+  display: flex;
+  justify-content: space-around;
   min-height: 50px;
 }
