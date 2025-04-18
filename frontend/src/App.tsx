@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import GuessGrid from './Components/GuessGrid'
 import VirtualKeyboard from './Components/VirtualKeyboard'
