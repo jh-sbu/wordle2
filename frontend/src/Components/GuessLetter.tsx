@@ -8,7 +8,7 @@ interface GuessLetterProps {
 
 const GuessLetter = (props: GuessLetterProps) => {
   return (
-    <div className={`guess-letter flex items-center justify-center font-bold text-white uppercase ${props.color}`}>
+    <div className={`guess-letter flex items-center justify-center font-bold text-white uppercase ${Color.Black}`}>
       {props.letter}
     </div>
   )
