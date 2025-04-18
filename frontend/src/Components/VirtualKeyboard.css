@@ -1,13 +1,18 @@
 .virtual-keyboard {
   display: flex;
+}
+
+.letter-keys {
+  display: flex;
   flex-direction: column;
   align-items: center;
+  margin-right: 1em;
 }
 
 .keyboard-row {
   display: flex;
   justify-content: center;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.25em;
 }
 
 .keyboard-row:last-child {
