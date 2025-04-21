@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css'
 import GuessGrid from './Components/GuessGrid'
 import VirtualKeyboard from './Components/VirtualKeyboard'
 import Color from './Enums/Color';
+import GameOverPopover from './Components/GameOverPopover';
 
 
 const baseUrl = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
@@ -19,6 +20,11 @@ function App() {
   const [guesses, setGuesses] = useState<(string | null)[]>(Array(maxGuesses).fill(null));
   // const [currentLine, setCurrentLine] = useState(guesses[0]);
   const [results, setResults] = useState<Color[][]>(Array(maxGuesses).fill(Array(wordLength).fill(Color.Black)));
+
+  // For the popup at the end of the game
+  const [showPopup, setShowPopup] = useState(true);
+  const [won, setWon] = useState(false);
+  const targetRef = useRef<HTMLDivElement>(null);
 
   /**
    *
@@ -177,11 +183,22 @@ function App() {
   }, [currentLineNum]);
 
   return (
-    <>
+    <div ref={targetRef}>
       <h1>Wordle 2</h1>
       <GuessGrid currentLine={currentLineNum} guesses={guesses} results={results} />
       <VirtualKeyboard buttonClick={handleKeyPress} />
-    </>
+
+      {targetRef &&
+        <GameOverPopover
+          show={showPopup}
+          target={targetRef}
+          won={false}
+          tries={currentLineNum + 1}
+          correct="words"
+          closePopup={() => setShowPopup(false)}
+        />
+      }
+    </div>
   )
 }
 
