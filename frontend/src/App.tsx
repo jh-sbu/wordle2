@@ -4,6 +4,7 @@ import GuessGrid from './Components/GuessGrid'
 import VirtualKeyboard from './Components/VirtualKeyboard'
 import Color from './Enums/Color';
 import GameOverPopover from './Components/GameOverPopover';
+import ErrorPopover from './Components/ErrorPopover';
 
 
 const baseUrl = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
@@ -19,6 +20,11 @@ function App() {
   const [currentLineNum, setCurrentLineNum] = useState<number>(0);
   const [guesses, setGuesses] = useState<(string | null)[]>(Array(maxGuesses).fill(null));
   const [results, setResults] = useState<Color[][]>(Array(maxGuesses).fill(Array(wordLength).fill(Color.Black)));
+
+  // For the error message popup
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorTitle, setErrorTitle] = useState("");
 
   // For the popup at the end of the game
   const [showPopup, setShowPopup] = useState(false);
@@ -78,6 +84,10 @@ function App() {
           }
 
           setResults(newResults);
+        } else if (data['badWord']) {
+          setErrorMessage(`Word ${guess} not found in dictionary.`);
+          setErrorTitle("Not Found");
+          setShowError(true);
         }
       })
       .catch(error => {
@@ -112,8 +122,9 @@ function App() {
   }
 
   const handleKeyPress = (keyName: string) => {
-    if ((showPopup && keyName === "Enter") || keyName === "Escape") {
+    if (((showError || showPopup) && keyName === "Enter") || keyName === "Escape") {
       setShowPopup(false);
+      setShowError(false);
       return;
     }
     if (currentLineNum >= maxGuesses) {
@@ -124,7 +135,10 @@ function App() {
 
     if (keyName === "Enter") {
       if (currentLine === undefined || currentLine === null || currentLine.length !== wordLength) {
-        console.error("Not implemented: Show an error message for too short");
+        // console.error("Not implemented: Show an error message for too short");
+        setErrorMessage("Fill in all the letters!");
+        setErrorTitle("Too Short");
+        setShowError(true);
         return;
       }
 
@@ -199,16 +213,23 @@ function App() {
       <GuessGrid currentLine={currentLineNum} guesses={guesses} results={results} />
       <VirtualKeyboard buttonClick={handleKeyPress} />
 
-      {targetRef &&
-        <GameOverPopover
-          show={showPopup}
-          target={targetRef}
-          won={won}
-          tries={tries}
-          correct={correctWord}
-          closePopup={() => setShowPopup(false)}
-        />
-      }
+
+      <ErrorPopover
+        show={showError}
+        title={errorTitle}
+        message={errorMessage}
+        target={targetRef}
+        closePopup={() => setShowError(false)}
+      />
+
+      <GameOverPopover
+        show={showPopup}
+        target={targetRef}
+        won={won}
+        tries={tries}
+        correct={correctWord}
+        closePopup={() => setShowPopup(false)}
+      />
     </div>
   )
 }

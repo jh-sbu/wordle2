@@ -32,7 +32,7 @@ def get_words(filename: str):
 words = get_words("words.txt")
 
 
-def get_word_of_day():
+def get_word_of_day() -> str:
     today_seed = int(datetime.now(timezone.utc).strftime("%Y%m%d"))
 
     rng = random.Random(today_seed)
@@ -93,7 +93,7 @@ def guess():
             return jsonify({"error": "Only ascii characters are supported"}), 400
 
     if guess not in words:
-        return jsonify({"error": "Word not found in word list"}), 400
+        return jsonify({"badWord": True}), 200
 
     word = get_word_of_day()
 
@@ -105,7 +105,7 @@ def guess():
 # Get the answer after failing to guess
 @app.route("/api/answer", methods=["GET"])
 def answer():
-    word = get_word_of_day()
+    word = get_word_of_day().upper()
     print(f"Sending word {word} to the client")
     return jsonify({"results": word})
 

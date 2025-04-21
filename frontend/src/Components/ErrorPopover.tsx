@@ -5,6 +5,7 @@ import './ErrorPopover.css'; // Import the CSS file
 interface ErrorPopoverProps {
   show: boolean;
   message: string;
+  title: string;
   target: React.RefObject<HTMLElement | null>; // Add target prop
   closePopup: () => void;
 }
@@ -19,7 +20,7 @@ const ErrorPopover: React.FC<ErrorPopoverProps> = (props) => {
         containerPadding={20}
       >
         <Popover id="error-popover"> {/* Use a unique ID */}
-          <Popover.Header as="h3">Error</Popover.Header>
+          <Popover.Header as="h3">{props.title}</Popover.Header>
           <Popover.Body>
             {props.message}
             <div className="close-button-container">
