@@ -18,12 +18,13 @@ function App() {
 
   const [currentLineNum, setCurrentLineNum] = useState<number>(0);
   const [guesses, setGuesses] = useState<(string | null)[]>(Array(maxGuesses).fill(null));
-  // const [currentLine, setCurrentLine] = useState(guesses[0]);
   const [results, setResults] = useState<Color[][]>(Array(maxGuesses).fill(Array(wordLength).fill(Color.Black)));
 
   // For the popup at the end of the game
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
   const [won, setWon] = useState(false);
+  const [tries, setTries] = useState(0);
+  const [correctWord, setCorrectWord] = useState<string | null>(null);
   const targetRef = useRef<HTMLDivElement>(null);
 
   /**
@@ -62,14 +63,16 @@ function App() {
 
           newResults[currentLineNum] = newResult;
 
-
+          // You won!
           if (newResult.every((color) => color === Color.Green)) {
-            console.error("Not implemented: Handle Winning");
+            const totalTries = currentLineNum + 1;
+            setTries(totalTries);
+            setWon(true);
+            setShowPopup(true);
             setCurrentLineNum((_) => maxGuesses);
           } else if (currentLineNum < maxGuesses - 1) {
             setCurrentLineNum((currentLineNum) => currentLineNum + 1);
           } else {
-            console.error("Not implemented: Show message on losing");
             setCurrentLineNum((currentLineNum) => currentLineNum + 1);
             giveUp();
           }
@@ -96,9 +99,11 @@ function App() {
       .then(response => response.json())
       .then(data => {
         if (data['results']) {
-          console.error("Not implmented: showing a popup for the correct answer");
+          // console.error("Not implmented: showing a popup for the correct answer");
           console.log(`Correct answer: ${data['results']}`);
-          ;
+          setCorrectWord(data['results']);
+          setWon(false);
+          setShowPopup(true);
         }
       })
       .catch(error => {
@@ -107,6 +112,10 @@ function App() {
   }
 
   const handleKeyPress = (keyName: string) => {
+    if ((showPopup && keyName === "Enter") || keyName === "Escape") {
+      setShowPopup(false);
+      return;
+    }
     if (currentLineNum >= maxGuesses) {
       return;
     }
@@ -151,7 +160,7 @@ function App() {
 
     if (event.key === "Backspace") {
       handleKeyPress("Back");
-    } else if (event.key === "Enter") {
+    } else if (event.key === "Enter" || event.key === "Escape") {
       handleKeyPress(event.key);
     } else {
       const upper = event.key.toUpperCase();
@@ -183,8 +192,10 @@ function App() {
   }, [currentLineNum]);
 
   return (
-    <div ref={targetRef}>
-      <h1>Wordle 2</h1>
+    <div>
+      <div ref={targetRef}>
+        <h1>Wordle 2</h1>
+      </div>
       <GuessGrid currentLine={currentLineNum} guesses={guesses} results={results} />
       <VirtualKeyboard buttonClick={handleKeyPress} />
 
@@ -192,9 +203,9 @@ function App() {
         <GameOverPopover
           show={showPopup}
           target={targetRef}
-          won={false}
-          tries={currentLineNum + 1}
-          correct="words"
+          won={won}
+          tries={tries}
+          correct={correctWord}
           closePopup={() => setShowPopup(false)}
         />
       }
