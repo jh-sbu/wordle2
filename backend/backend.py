@@ -5,7 +5,7 @@ import string
 import random
 import os
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 app = Flask(__name__)
@@ -33,7 +33,7 @@ words = get_words("words.txt")
 
 
 def get_word_of_day():
-    today_seed = int(datetime.today().strftime("%Y%m%d"))
+    today_seed = int(datetime.now(timezone.utc).strftime("%Y%m%d"))
 
     rng = random.Random(today_seed)
 
