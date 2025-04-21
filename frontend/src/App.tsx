@@ -6,6 +6,7 @@ import Color from './Enums/Color';
 
 
 const baseUrl = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
+console.log(`Base URL: ${baseUrl}`);
 
 function App() {
   // May want to add a "move to longer word" feature after a correct guess
