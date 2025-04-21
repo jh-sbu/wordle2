@@ -13,7 +13,7 @@ function App() {
   const [wordLength, _setWordLength] = useState<number>(5);
   // Max guesses may vary by word length so again, for future proofing,
   // make this state
-  const [maxGuesses, setMaxGuesses] = useState<number>(6);
+  const [maxGuesses, _setMaxGuesses] = useState<number>(6);
 
   const [currentLineNum, setCurrentLineNum] = useState<number>(0);
   const [guesses, setGuesses] = useState<(string | null)[]>(Array(maxGuesses).fill(null));
@@ -59,7 +59,7 @@ function App() {
 
           if (newResult.every((color) => color === Color.Green)) {
             console.error("Not implemented: Handle Winning");
-            setCurrentLineNum((currentLineNum) => maxGuesses);
+            setCurrentLineNum((_) => maxGuesses);
           } else if (currentLineNum < maxGuesses - 1) {
             setCurrentLineNum((currentLineNum) => currentLineNum + 1);
           } else {
