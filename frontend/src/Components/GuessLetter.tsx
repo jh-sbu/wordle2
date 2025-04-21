@@ -1,3 +1,4 @@
+import React from "react";
 import Color from "../Enums/Color";
 import './GuessLetter.css';
 
@@ -6,9 +7,9 @@ interface GuessLetterProps {
   color: Color;
 }
 
-const GuessLetter = (props: GuessLetterProps) => {
+const GuessLetter: React.FC<GuessLetterProps> = (props) => {
   return (
-    <div className={`guess-letter flex items-center justify-center font-bold text-white uppercase ${Color.Black}`}>
+    <div className={`guess-letter ${props.color}`}>
       {props.letter}
     </div>
   )

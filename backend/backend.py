@@ -4,7 +4,7 @@ from flask_cors import CORS
 import string
 import random
 
-from datetime import date, datetime
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -50,32 +50,31 @@ def check_word(guess: str, word: str) -> list[str]:
         else:
             letter_counts[c] = 1
 
-    for i in range(len(guess)):
-        # In the correct spot
+    # In the correct spot
+    for i in range(len(word)):
         if guess[i] == word[i]:
             stats[i] = "c"
             letter_counts[guess[i]] -= 1
 
-        # In the word but not the correct spot
-        elif guess[i] in word:
-            if guess[i] in letter_counts and letter_counts[guess[i]] > 0:
-                letter_counts[guess[i]] -= 1
-                stats[i] = "p"
-            # The letter is in the word but the guess contains too many copies
-            else:
-                stats[i] = "r"
+    # In the word but not the correct spot
+    for i in range(len(guess)):
+        if stats[i] != "c" and guess[i] in word and letter_counts[guess[i]] > 0:
+            letter_counts[guess[i]] -= 1
+            stats[i] = "p"
 
-        else:
+    # Everything else
+    for i in range(len(guess)):
+        if stats[i] == "u":
             stats[i] = "r"
 
     return stats
 
-    # return ["c", "p", "r", "r", "r"]
 
-
-@app.route("/guess", methods=["POST"])
+@app.route("/api/guess", methods=["POST"])
 def guess():
-    guess = request.args.get("guess")
+    data = request.get_json()
+
+    guess = data.get("guess")
 
     if guess is None:
         return jsonify({"error": "Requests must include the user's guess"}), 400
@@ -99,7 +98,13 @@ def guess():
 
     return jsonify({"results": results})
 
-    # return jsonify({"error": "Not implemented yet"}), 405
+
+# Get the answer after failing to guess
+@app.route("/api/answer", methods=["GET"])
+def answer():
+    word = get_word_of_day()
+    print(f"Sending word {word} to the client")
+    return jsonify({"results": word})
 
 
 if __name__ == "__main__":

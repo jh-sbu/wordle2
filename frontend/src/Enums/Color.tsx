@@ -1,9 +1,9 @@
 enum Color {
-  Gray,
-  DarkGray,
-  Yellow,
-  Green,
-  Black
+  Gray = "Gray",
+  DarkGray = "DarkGray",
+  Yellow = "Yellow",
+  Green = "Green",
+  Black = "Black"
 }
 
 export default Color;
