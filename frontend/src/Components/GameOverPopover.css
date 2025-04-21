@@ -1,0 +1,48 @@
+#game-result-popover {
+  background-color: #1a1a1a; /* Slightly lighter than main background for contrast */
+  border: 2px solid rgb(44 44 44);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.87);
+  max-width: 300px; /* Adjust as needed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow */
+}
+
+#game-result-popover .popover-header {
+  background-color: rgb(44 44 44); /* Darker header background */
+  color: rgba(255, 255, 255, 0.87);
+  border-bottom: 1px solid rgb(60 60 60); /* Subtle separator */
+  border-top-left-radius: 6px; /* Match outer radius minus border */
+  border-top-right-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-size: 1.2em;
+}
+
+#game-result-popover .popover-body {
+  padding: 1rem;
+  font-size: 1em;
+}
+
+.close-button-container {
+  margin-top: 1rem;
+  text-align: right; /* Align button to the right */
+}
+
+.close-button {
+  /* Inherits base button styles from index.css */
+  /* Add specific overrides if needed */
+  padding: 0.5em 1em;
+  font-size: 0.9em;
+}
+
+/* Override default react-bootstrap arrow styles if needed */
+#game-result-popover .popover-arrow::before,
+#game-result-popover .popover-arrow::after {
+  border-top-color: rgb(44 44 44) !important; /* Match border color */
+}
+
+#game-result-popover.bs-popover-bottom > .popover-arrow::before,
+#game-result-popover.bs-popover-bottom > .popover-arrow::after {
+   border-bottom-color: rgb(44 44 44) !important; /* Match border color */
+}
+
+/* Add similar rules for bs-popover-start and bs-popover-end if needed */

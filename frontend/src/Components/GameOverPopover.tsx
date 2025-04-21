@@ -1,5 +1,6 @@
 import React from "react";
 import { Overlay, Popover } from "react-bootstrap";
+import './GameOverPopover.css';
 
 interface GameOverPopoverProps {
   show: boolean;
