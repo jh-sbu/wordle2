@@ -63,6 +63,9 @@ function App() {
             } else if (s === 'p') {
               return Color.Yellow;
             } else {
+              if (s === 'a' || s === 'e' || s === 'i' || s === 'o' || s === 'u') {
+                return Color.Purple;
+              }
               return Color.Green;
             }
           })
