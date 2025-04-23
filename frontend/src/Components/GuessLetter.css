@@ -10,11 +10,13 @@
 }
 
 .Green {
-  background-color: rgb(106 170 100);
+  /*background-color: rgb(106 170 100);*/
+  background-color: Blue;
 }
 
 .Yellow {
-  background-color: rgb(201 180 88);
+  /*background-color: rgb(201 180 88);*/
+  background-color: orange;
 }
 
 .DarkGray {
