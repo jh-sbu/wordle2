@@ -10,13 +10,15 @@
 }
 
 .Green {
-  /*background-color: rgb(106 170 100);*/
-  background-color: Blue;
+  background-color: rgb(106 170 100);
+  /*background-color: Blue;*/
+  /*background-color: Green;*/
 }
 
 .Yellow {
-  /*background-color: rgb(201 180 88);*/
-  background-color: orange;
+  background-color: rgb(201 180 88);
+  /*background-color: orange;*/
+  /*background-color: Yellow;*/
 }
 
 .Purple {

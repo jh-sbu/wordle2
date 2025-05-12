@@ -8,6 +8,7 @@ import ErrorPopover from './Components/ErrorPopover';
 
 
 const baseUrl = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
+// console.log(`${import.meta.env.VITE_API_URL}`);
 
 function App() {
   // May want to add a "move to longer word" feature after a correct guess
@@ -43,7 +44,9 @@ function App() {
     if (currentLineNum >= maxGuesses) {
       return;
     }
-    fetch(`${baseUrl}/api/guess`, {
+    // console.log(`${baseUrl}`);
+    // console.log(`${baseUrl}api/guess`);
+    fetch(`${baseUrl}api/guess`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -62,13 +65,19 @@ function App() {
               return Color.DarkGray;
             } else if (s === 'p') {
               return Color.Yellow;
-            } else {
-              if (s === 'a' || s === 'e' || s === 'i' || s === 'o' || s === 'u') {
-                return Color.Purple;
-              }
-              return Color.Green;
             }
-          })
+            return Color.Green;
+          });
+
+          // const vowels = ['A', 'E', 'I', 'O', 'U'];
+          //
+          // for (let i = 0; i < 5; i++) {
+          //   console.log(`i: ${i} | newResults[i]: ${newResult[i]} | vowels.includes(guess[i]) ${vowels.includes(newResult[i])}`);
+          //   console.log(`word[i]: ${guess[i]}`);
+          //   if (newResult[i] === Color.Green && vowels.includes(guess[i])) {
+          //     newResult[i] = Color.Purple;
+          //   }
+          // }
 
           newResults[currentLineNum] = newResult;
 
@@ -87,7 +96,7 @@ function App() {
           }
 
           setResults(newResults);
-        } else if (data['badWord']) {
+        } else if (data['badWord'] || data['error'] && data['error'] === "Word not found in dictionary") {
           setErrorMessage(`Word ${guess} not found in dictionary.`);
           setErrorTitle("Not Found");
           setShowError(true);
@@ -103,7 +112,7 @@ function App() {
    */
   const giveUp = () => {
     console.log("Here");
-    fetch(`${baseUrl}/api/answer`, {
+    fetch(`${baseUrl}api/answer`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -113,8 +122,14 @@ function App() {
       .then(data => {
         if (data['results']) {
           // console.error("Not implmented: showing a popup for the correct answer");
-          console.log(`Correct answer: ${data['results']}`);
-          setCorrectWord(data['results']);
+          let theAnswer;
+          if (data['results'].join) {
+            theAnswer = data['results'].join('');
+          } else {
+            theAnswer = data['results'];
+          }
+          console.log(`Correct answer: ${theAnswer}`);
+          setCorrectWord(theAnswer);
           setWon(false);
           setShowPopup(true);
         }
